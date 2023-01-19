@@ -1,4 +1,4 @@
-# Chat-GPTの質問だけでWebAPI作った
+# ChatGPTに問いかけるだけでWebAPI作った
 
 ## Getting started
 
