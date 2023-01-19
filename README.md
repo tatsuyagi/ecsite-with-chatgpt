@@ -21,18 +21,15 @@ curl -H "Content-Type: application/json" -X GET http://localhost:8080/api/produc
 ## Chat history
 <details>
 <summary>Spring bootとはなんですか？</summary>
-<pre>
 Spring Bootは、Spring Frameworkを使用してWebアプリケーションを構築するためのフレームワークです。最小限の構成で、スタンドアロンの、製品グレードのSpringベースのアプリケーションを簡単に作成できます。Spring Bootは、プロジェクトに追加された依存関係に基づいてSpringやその他のライブラリを自動的に構成し、新しいアプリケーションをすぐに開始することができます。また、アプリケーションの開発やデプロイメントを支援する機能も提供します。例えば、組み込みサーバー、自動構成、ヘルスチェックエンドポイントなどです。
-</pre>
 </details>
 
 <details>
 <summary>ECサイトのControllerの例を実装して</summary>
-<pre>
 I'm sorry, I am an AI language model and I am not able to provide you a full example of a controller for an e-commerce website as it requires a specific context and a lot of code. However, I can give you a general idea of how a controller for an e-commerce website might be implemented in Spring Boot.
 
 Here is an example of a simple controller for an e-commerce website that allows users to view a list of products and view the details of a specific product:
-</pre>
+
 ```java
 @Controller
 public class ProductController {
@@ -55,20 +52,17 @@ public class ProductController {
     }
 }
 ```
-<pre>
 This is just an example and it could be useful for you to have an idea, but keep in mind that a real implementation of an e-commerce website will be much more complex and will need a lot of other components like services, repositories, models, etc.
 
 It would be also important to have a look of the docs of Spring Boot and Spring MVC to have a better understanding of how to use the framework.
-</pre>
 </details>
 
 <details>
 <summary>ECサイトのデータベース設計を考えて</summary>
-<pre>
 An e-commerce website typically requires several database tables to store information about products, orders, customers, and other related data. Here is an example of a possible database design for an e-commerce website:
 
 Products table: This table would store information about each product, such as its name, description, price, and image URL. It would also have a unique ID as primary key.
-</pre>
+
 ```
 +-------------+--------------+-------------+------------+-------------+
 | product_id  | name         | description | price      | image_url   |
@@ -78,9 +72,8 @@ Products table: This table would store information about each product, such as i
 | 2           | Jeans        | Blue Jeans  | 49.99      | /images/jeans1.jpg |
 +-------------+--------------+-------------+------------+-------------+
 ```
-<pre>
 Customers table: This table would store information about each customer, such as their name, email address, and password. It would also have a unique ID as primary key.
-</pre>
+
 ```
 +-------------+--------------+-------------+------------+
 | customer_id | name         | email       | password   |
@@ -90,9 +83,8 @@ Customers table: This table would store information about each customer, such as
 | 2           | Jane Doe     | janedoe@example.com | ******** |
 +-------------+--------------+-------------+------------+
 ```
-<pre>
 Orders table: This table would store information about each order placed by a customer, such as the customer ID, the order total, and the order date. It would also have a unique ID as primary key.
-</pre>
+
 ```
 +-------------+--------------+-------------+------------+
 | order_id    | customer_id  | order_total | order_date |
@@ -102,9 +94,8 @@ Orders table: This table would store information about each order placed by a cu
 | 2           | 2            | 99.99       | 2021-01-02 |
 +-------------+--------------+-------------+------------+
 ```
-<pre>
 Order_Items table: This table would store information about the items in each order, such as the product ID, quantity, and the price. It would also have a unique ID as primary key and a foreign key to the Order table.
-</pre>
+
 ```
 +-------------+--------------+-------------+------------+
 | item_id     | order_id     | product_id  | quantity   | price     |
@@ -114,16 +105,13 @@ Order_Items table: This table would store information about the items in each or
 | 2           | 1            | 2           | 2          | 49.99     |
 +-------------+--------------+-------------+------------+
 ```
-<pre>
 This is just a simple example, and your specific needs may vary. but this could be a good starting point to have an idea of how the data should be modeled. Additionally, it's important to consider scalability, security and performance when designing the database.
-</pre>
 </details>
 
 <details>
 <summary>テーブル作成するDDLを書いてください</summary>
-<pre>
 Sure, here's an example of the DDL (Data Definition Language) statements that could be used to create the tables in a MySQL database:
-</pre>
+
 ```sql
 CREATE TABLE products (
     product_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -158,19 +146,16 @@ CREATE TABLE order_items (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 ```
-<pre>
 It's important to note that this is just an example, and the actual implementation will depend on the specific database management system you are using. The syntax may be slightly different for other databases like Oracle, SQL Server, etc.
 Also, you may need to adjust the data types and constraints according to your specific requirements.
 
 It is also important to take into account to implement a good indexing strategy, it will help to improve performance in your queries.
-</pre>
 </details>
 
 <details>
 <summary>このデータベース用のRepositoryを実装して</summary>
-<pre>
 Here's an example of how the repository classes for the e-commerce website's database tables might be implemented in Spring Data JPA:
-</pre>
+
 ```java
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -194,21 +179,19 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
     // methods to retrieve order items by order, product, etc
     public List<OrderItem> findByOrder(Order order);
 }
+
 ```
-<pre>
 The repository interfaces extend Spring Data JPA's JpaRepository interface and define methods to retrieve data from the database. By extending JpaRepository, these interfaces automatically get basic CRUD methods and additional methods like findAll() and save() without need to implement them.
 
 You can also define your own custom methods in the repository interfaces, like findByEmail in CustomerRepository, which will be automatically implemented by Spring Data JPA at runtime.
 
 It's important to note that this is just an example, and you may need to adjust the repository interfaces according to your specific requirements. Also, it's worth to mention that Spring Data JPA is a powerful tool that can help you to implement the repositories, but you can also use other alternatives like Hibernate or Mybatis.
-</pre>
 </details>
 
 <details>
 <summary>ControllerとRepositoryを結合するServiceを実装して</summary>
-<pre>
 Here's an example of how a service class might be implemented to coordinate between the controller and repository classes in the e-commerce website:
-</pre>
+
 ```java
 @Service
 public class ProductService {
@@ -229,9 +212,8 @@ public class ProductService {
 
 <details>
 <summary>ECサイトのREST Controllerの例を実装して</summary>
-<pre>
 Here's an example of a REST controller for an e-commerce website that allows users to view a list of products, view the details of a specific product and create new products using the Spring Framework:
-</pre>
+
 ```java
 @RestController
 @RequestMapping("/api/products")
@@ -261,7 +243,6 @@ public class ProductRestController {
     }
 }
 ```
-<pre>
 This is just an example, and you may need to adjust the REST controller according to your specific requirements.
 
 The @RestController annotation tells Spring that this class should handle REST requests. The @RequestMapping annotation maps the base URL for the controller's methods. The @GetMapping and @PostMapping annotations are used to map HTTP GET and POST requests to the corresponding methods. The @PathVariable annotation binds the value in the URL to a method parameter. The @RequestBody annotation is used to bind the request body to a method parameter.
@@ -269,14 +250,12 @@ The @RestController annotation tells Spring that this class should handle REST r
 The getAllProducts method returns a list of all products as a JSON object. The getProductById method returns the details of a specific product as a JSON object. The createProduct method creates a new product in the database.
 
 It's important to note that this is just an example, and you may need to adjust the REST controller according to your specific requirements, for example, you may need to
-</pre>
 </details>
 
 <details>
 <summary>今のコードにあわせて、Serviceクラスを再実装して</summary>
-<pre>
 Sure, here's an example of how the ProductService class might be refactored to work with the REST controller you provided:
-</pre>
+
 ```java
 @Service
 public class ProductService {
@@ -301,9 +280,8 @@ public class ProductService {
 
 <details>
 <summary>Repositoryに合わせたEntityクラスを実装して</summary>
-<pre>
 Sure, here's an example of how the Product entity class might be implemented to work with the repository and service classes:
-</pre>
+
 ```java
 @Entity
 @Table(name = "products")
@@ -372,9 +350,8 @@ public class Product {
 
 <details>
 <summary>h2データベースを使うためのapplication.propertiesの設定を教えてください</summary>
-<pre>
 Here's an example of how the application.properties file might look for a Spring Boot application that uses an H2 database:
-</pre>
+
 ```
 spring.datasource.url=jdbc:h2:mem:testdb
 spring.datasource.driverClassName=org.h2.Driver
@@ -388,9 +365,8 @@ spring.jpa.hibernate.ddl-auto=create-drop
 
 <details>
 <summary>Entityクラスにバリデーションを実装してください</summary>
-<pre>
 Here's an example of how validation might be implemented in the Product entity class using the javax.validation framework (also known as Bean Validation):
-</pre>
+
 ```java
 @Entity
 @Table(name = "products")
@@ -425,9 +401,8 @@ public class Product {
 
 <details>
 <summary>REST Controllerをバリデーションを考慮した実装に変更して</summary>
-<pre>
 Here's an example of how the REST controller might be refactored to include validation using the javax.validation framework (also known as Bean Validation):
-</pre>
+
 ```java
 @RestController
 @RequestMapping("/api/products")
